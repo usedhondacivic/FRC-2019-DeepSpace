@@ -21,4 +21,8 @@ public class Chassis{
         IO.out.motors.set(this.right, rightSpeed);
         IO.out.motors.set(this.rightSlave, rightSpeed);
     }
+
+    public void arcadeDrive(double speed, double turn){
+        this.drive(speed*(1+turn), speed*(1-turn));
+    }
 }

@@ -2,19 +2,29 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.systems.Drive;
+import frc.robot.systems.Arm;
+import frc.robot.systems.Intake;
+import frc.robot.systems.RobotLift;
 import frc.robot.framework.Subsystems;
-import frc.robot.framework.Util.RobotState;
 
 public class Robot extends TimedRobot {
     @Override
 	public void robotInit() {
 		IO.Initialize();
-		Subsystems.add(new Drive());
+        Subsystems.add(new Drive());
+        Subsystems.add(new Arm());
+        Subsystems.add(new Intake());
+        Subsystems.add(new RobotLift());
 	}
-	
+    @Override
+    public void robotPeriodic() {
+        IO.out.update();
+    }
+    
 	@Override
 	public void disabledInit() {
-		Subsystems.disableAll();
+        Subsystems.disableAll();
+        IO.out.disable();
 	}
 
 	@Override
