@@ -23,13 +23,25 @@ public class IO{
     public static int DRIVER_SLOW;
     public static int DRIVER_FAST;
     public static int DRIVER_BALL_SEEK;
+
     public static int OPERATOR_INTAKE_IN;
     public static int OPERATOR_INTAKE_OUT;
     public static int OPERATOR_ARM_HEIGHT;
     public static int OPERATOR_PUSHER_OUT;
-    public static int OPERATOR_PUSHER_IN;
+    public static int OPERATOR_CYCLE_PROFILE_UP;
+    public static int OPERATOR_CYCLE_PROFILE_DOWN;
     public static int OPERATOR_LIFT_UP;
-    public static int OPERATOR_LIFT_DOWN;
+    public static int OPERATOR_ARM_BOOST_UP;
+    public static int OPERATOR_ARM_BOOST_DOWN;
+
+    public static int OPERATOR_ARM_LOW_LOWER;
+    public static int OPERATOR_ARM_MIDDLE_LOWER;
+    public static int OPERATOR_ARM_HIGH_LOWER;
+    public static int OPERATOR_ARM_LOW_UPPER;
+    public static int OPERATOR_ARM_MIDDLE_UPPER;
+    public static int OPERATOR_ARM_HIGH_UPPER;
+
+    public static int OPERATOR_COMPRESSOR;
 
     public static int PIXY;
     public static Gyro GYRO;
@@ -46,11 +58,17 @@ public class IO{
     public static int INTAKE = Constants.INTAKE_ID;
     public static int ARM = Constants.ARM_LIFT_ID;
 
-    public static int PUSHER_SOLENOID = Constants.PUSHER_SOL_ID;
-    public static int LIFT_SOLENOID = Constants.LIFT_SOL_ID;
+    public static int PUSHER_SOLENOID;
+    public static int LIFT_SOLENOID;
+    public static int ARM_BOOST_SOLENOID;
 
     public static void Initialize(){
         in = new In();
+
+        in.addProfile(ButtonProfiles.PNEUMATICS);
+        in.addProfile(ButtonProfiles.ROCKET_LOWER);
+        in.addProfile(ButtonProfiles.ROCKET_UPPER);
+        
         out = new Out();
         chassis = new Chassis(DRIVE_RIGHT, DRIVE_RIGHT_SLAVE, DRIVE_LEFT, DRIVE_LEFT_SLAVE);
 
@@ -62,8 +80,9 @@ public class IO{
         out.motors.add(INTAKE, false);
         out.motors.add(ARM, false);
 
-        out.solenoids.add(PUSHER_SOLENOID);
-        out.solenoids.add(LIFT_SOLENOID);
+        PUSHER_SOLENOID = out.solenoids.add(Constants.PUSHER_SOL_1_ID, Constants.PUSHER_SOL_2_ID);
+        LIFT_SOLENOID = out.solenoids.add(Constants.LIFT_SOL_1_ID, Constants.LIFT_SOL_2_ID);
+        ARM_BOOST_SOLENOID = out.solenoids.add(Constants.ARM_BOOST_SOL_1_ID, Constants.ARM_BOOST_SOL_2_ID);
 
         DRIVER_LEFT_Y = in.add(new ControllerAxisSensor(driver, Constants.DRIVER_LEFT_AXIS_ID));
         DRIVER_RIGHT_Y = in.add(new ControllerAxisSensor(driver, Constants.DRIVER_RIGHT_AXIS_ID));
@@ -71,13 +90,22 @@ public class IO{
         DRIVER_FAST = in.add(new ControllerAxisSensor(driver, Constants.DRIVER_FAST_AXIS_ID));
         DRIVER_BALL_SEEK = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_BALL_SEEK_BUTTON_ID));
 
-        OPERATOR_INTAKE_IN = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_INTAKE_IN_ID));
-        OPERATOR_INTAKE_OUT = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_INTAKE_OUT_ID));
+        OPERATOR_INTAKE_IN = in.add(new ControllerAxisSensor(operator, Constants.OPERATOR_INTAKE_IN_ID));
+        OPERATOR_INTAKE_OUT = in.add(new ControllerAxisSensor(operator, Constants.OPERATOR_INTAKE_OUT_ID));
         OPERATOR_ARM_HEIGHT = in.add(new ControllerAxisSensor(operator, Constants.OPERATOR_ARM_HEIGHT_ID));
-        OPERATOR_PUSHER_OUT = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_PUSHER_OUT_ID));
-        OPERATOR_PUSHER_IN = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_PUSHER_IN_ID));
-        OPERATOR_LIFT_UP = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LIFT_UP_ID));
-        OPERATOR_LIFT_DOWN = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LIFT_DOWN_ID));
+        OPERATOR_PUSHER_OUT = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_PUSHER_OUT_ID, ButtonProfiles.PNEUMATICS, true));
+        OPERATOR_LIFT_UP = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LIFT_UP_ID, ButtonProfiles.PNEUMATICS));
+        OPERATOR_CYCLE_PROFILE_DOWN = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_CYCLE_PROFILE_DOWN_ID));
+        OPERATOR_CYCLE_PROFILE_UP = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_CYCLE_PROFILE_UP_ID));
+        OPERATOR_ARM_BOOST_UP = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_ARM_BOOST_UP_ID, ButtonProfiles.PNEUMATICS));
+        OPERATOR_ARM_BOOST_DOWN = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_ARM_BOOST_DOWN_ID, ButtonProfiles.PNEUMATICS));
+
+        OPERATOR_ARM_LOW_LOWER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LOW_HEIGHT_ID, ButtonProfiles.ROCKET_LOWER));
+        OPERATOR_ARM_MIDDLE_LOWER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_MIDDLE_HEIGHT_ID, ButtonProfiles.ROCKET_LOWER));
+        OPERATOR_ARM_HIGH_LOWER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_HIGH_HEIGHT_ID, ButtonProfiles.ROCKET_LOWER));
+        OPERATOR_ARM_LOW_UPPER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LOW_HEIGHT_ID, ButtonProfiles.ROCKET_UPPER));
+        OPERATOR_ARM_MIDDLE_UPPER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_MIDDLE_HEIGHT_ID, ButtonProfiles.ROCKET_UPPER));
+        OPERATOR_ARM_HIGH_UPPER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_HIGH_HEIGHT_ID, ButtonProfiles.ROCKET_UPPER));
 
         PIXY = in.add(new PixyBlocksSensor(Constants.PIXY_BALL_ID, 1));
 

@@ -25,6 +25,13 @@ public class Dashboard{
         SmartDashboard.putNumber("Right encoder", 0);
         SmartDashboard.putNumber("Left encoder", 0);
         SmartDashboard.putNumber("Arm encoder", 0);
+
+        SmartDashboard.putNumber("Camera exposure", 0);
+
+        SmartDashboard.putString("Button profile", "");
+
+        camera1.setResolution(320, 240);
+        camera1.setExposureManual((int)SmartDashboard.getNumber("Camera exposure", 50));
     }
 
     public void update(){
@@ -36,6 +43,8 @@ public class Dashboard{
         SmartDashboard.putNumber("Right encoder", IO.RIGHT_ENCODER.getDistance());
         SmartDashboard.putNumber("Left encoder", IO.LEFT_ENCODER.getDistance());
         SmartDashboard.putNumber("Arm encoder", IO.ARM_ENCODER.getDistance());
+
+        SmartDashboard.putString("Button profile", IO.in.getProfile().toString());
     }
 
     public String getAuto(){

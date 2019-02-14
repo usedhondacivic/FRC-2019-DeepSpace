@@ -19,5 +19,5 @@ public class Buttons {
 	public static final int LEFT_JOYSTICK_Y = 1;
 	public static final int RIGHT_JOYSTICK_IN = 10;
 	public static final int RIGHT_JOYSTICK_X = 4;
-	public static final int RIGHT_JOYSTICK_Y = 5;
+    public static final int RIGHT_JOYSTICK_Y = 5;
 }

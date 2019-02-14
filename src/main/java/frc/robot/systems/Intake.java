@@ -3,10 +3,12 @@ package frc.robot.systems;
 import frc.robot.framework.Subsystem;
 import frc.robot.framework.Util.SubsystemID;
 import frc.robot.IO;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class Intake extends Subsystem{
     public Intake(){
-        super(SubsystemID.ARM);
+        super(SubsystemID.INTAKE);
     }
 
     public void autoInit(){
@@ -22,18 +24,18 @@ public class Intake extends Subsystem{
     }
 
     public void teleopUpdate(){
-        if((Boolean)IO.in.get(IO.OPERATOR_INTAKE_IN)){
+        if((Double)IO.in.get(IO.OPERATOR_INTAKE_IN) < -0.5){
             IO.out.motors.set(IO.INTAKE, -1);
-        }else if((Boolean)IO.in.get(IO.OPERATOR_INTAKE_OUT)){
+        }else if((Double)IO.in.get(IO.OPERATOR_INTAKE_OUT) < -0.5){
             IO.out.motors.set(IO.INTAKE, 1);
         }else if((Boolean)IO.in.get(IO.DRIVER_BALL_SEEK)){
             IO.out.motors.set(IO.INTAKE, -1);
         }
 
         if((Boolean)IO.in.get(IO.OPERATOR_PUSHER_OUT)){
-            IO.out.solenoids.set(IO.PUSHER_SOLENOID, true);
-        }else if((Boolean)IO.in.get(IO.OPERATOR_PUSHER_OUT)){
-            IO.out.solenoids.set(IO.PUSHER_SOLENOID, false);
+            IO.out.solenoids.set(IO.PUSHER_SOLENOID, Value.kForward);
+        }else{
+            IO.out.solenoids.set(IO.PUSHER_SOLENOID, Value.kReverse);
         }
     }
 
