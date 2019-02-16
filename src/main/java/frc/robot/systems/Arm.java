@@ -43,7 +43,7 @@ public class Arm extends Subsystem{
     }
 
     public void autoUpdate(){
-        this.teleopUpdate();
+        //this.teleopUpdate();
     }
 
     public void teleopInit(){

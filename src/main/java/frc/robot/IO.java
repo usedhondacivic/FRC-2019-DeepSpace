@@ -23,6 +23,7 @@ public class IO{
     public static int DRIVER_SLOW;
     public static int DRIVER_FAST;
     public static int DRIVER_BALL_SEEK;
+    public static int DRIVER_LIFT_UP;
 
     public static int OPERATOR_INTAKE_IN;
     public static int OPERATOR_INTAKE_OUT;
@@ -30,7 +31,6 @@ public class IO{
     public static int OPERATOR_PUSHER_OUT;
     public static int OPERATOR_CYCLE_PROFILE_UP;
     public static int OPERATOR_CYCLE_PROFILE_DOWN;
-    public static int OPERATOR_LIFT_UP;
     public static int OPERATOR_ARM_BOOST_UP;
     public static int OPERATOR_ARM_BOOST_DOWN;
 
@@ -91,12 +91,12 @@ public class IO{
         DRIVER_SLOW = in.add(new ControllerAxisSensor(driver, Constants.DRIVER_SLOW_AXIS_ID));
         DRIVER_FAST = in.add(new ControllerAxisSensor(driver, Constants.DRIVER_FAST_AXIS_ID));
         DRIVER_BALL_SEEK = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_BALL_SEEK_BUTTON_ID));
+        DRIVER_LIFT_UP = in.add(new ControllerButtonSensor(driver, Constants.OPERATOR_LIFT_UP_ID));
 
         OPERATOR_INTAKE_IN = in.add(new ControllerAxisSensor(operator, Constants.OPERATOR_INTAKE_IN_ID));
         OPERATOR_INTAKE_OUT = in.add(new ControllerAxisSensor(operator, Constants.OPERATOR_INTAKE_OUT_ID));
         OPERATOR_ARM_HEIGHT = in.add(new ControllerAxisSensor(operator, Constants.OPERATOR_ARM_HEIGHT_ID));
         OPERATOR_PUSHER_OUT = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_PUSHER_OUT_ID, ButtonProfiles.PNEUMATICS, true));
-        OPERATOR_LIFT_UP = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LIFT_UP_ID, ButtonProfiles.PNEUMATICS));
         OPERATOR_CYCLE_PROFILE_DOWN = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_CYCLE_PROFILE_DOWN_ID));
         OPERATOR_CYCLE_PROFILE_UP = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_CYCLE_PROFILE_UP_ID));
         OPERATOR_ARM_BOOST_UP = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_ARM_BOOST_UP_ID, ButtonProfiles.PNEUMATICS));
