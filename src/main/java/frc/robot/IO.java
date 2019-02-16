@@ -34,12 +34,12 @@ public class IO{
     public static int OPERATOR_ARM_BOOST_UP;
     public static int OPERATOR_ARM_BOOST_DOWN;
 
-    public static int OPERATOR_ARM_LOW_LOWER;
-    public static int OPERATOR_ARM_MIDDLE_LOWER;
-    public static int OPERATOR_ARM_HIGH_LOWER;
-    public static int OPERATOR_ARM_LOW_UPPER;
-    public static int OPERATOR_ARM_MIDDLE_UPPER;
-    public static int OPERATOR_ARM_HIGH_UPPER;
+    public static int OPERATOR_ARM_LOW_HATCH;
+    public static int OPERATOR_ARM_MIDDLE_HATCH;
+    public static int OPERATOR_ARM_HIGH_HATCH;
+    public static int OPERATOR_ARM_LOW_PORT;
+    public static int OPERATOR_ARM_MIDDLE_PORT;
+    public static int OPERATOR_ARM_HIGH_PORT;
 
     public static int OPERATOR_COMPRESSOR;
 
@@ -55,7 +55,8 @@ public class IO{
     public static int DRIVE_LEFT = Constants.DRIVE_LEFT_ID;
     public static int DRIVE_LEFT_SLAVE = Constants.DRIVE_LEFT_SLAVE_ID;
 
-    public static int INTAKE = Constants.INTAKE_ID;
+    public static int INTAKE_1 = Constants.INTAKE_1_ID;
+    public static int INTAKE_2 = Constants.INTAKE_2_ID;
     public static int ARM = Constants.ARM_LIFT_ID;
 
     public static int PUSHER_SOLENOID;
@@ -66,18 +67,19 @@ public class IO{
         in = new In();
 
         in.addProfile(ButtonProfiles.PNEUMATICS);
-        in.addProfile(ButtonProfiles.ROCKET_LOWER);
-        in.addProfile(ButtonProfiles.ROCKET_UPPER);
-        
+        in.addProfile(ButtonProfiles.ROCKET_HATCH);
+        in.addProfile(ButtonProfiles.ROCKET_PORT);
+
         out = new Out();
         chassis = new Chassis(DRIVE_RIGHT, DRIVE_RIGHT_SLAVE, DRIVE_LEFT, DRIVE_LEFT_SLAVE);
 
         out.motors.add(DRIVE_RIGHT, true);
         out.motors.add(DRIVE_RIGHT_SLAVE, true);
-        out.motors.add(DRIVE_LEFT, false);
+        out.motors.add(DRIVE_LEFT, true);
         out.motors.add(DRIVE_LEFT_SLAVE, false);
 
-        out.motors.add(INTAKE, false);
+        out.motors.add(INTAKE_1, false);
+        out.motors.add(INTAKE_2, false);
         out.motors.add(ARM, false);
 
         PUSHER_SOLENOID = out.solenoids.add(Constants.PUSHER_SOL_1_ID, Constants.PUSHER_SOL_2_ID);
@@ -100,12 +102,12 @@ public class IO{
         OPERATOR_ARM_BOOST_UP = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_ARM_BOOST_UP_ID, ButtonProfiles.PNEUMATICS));
         OPERATOR_ARM_BOOST_DOWN = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_ARM_BOOST_DOWN_ID, ButtonProfiles.PNEUMATICS));
 
-        OPERATOR_ARM_LOW_LOWER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LOW_HEIGHT_ID, ButtonProfiles.ROCKET_LOWER));
-        OPERATOR_ARM_MIDDLE_LOWER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_MIDDLE_HEIGHT_ID, ButtonProfiles.ROCKET_LOWER));
-        OPERATOR_ARM_HIGH_LOWER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_HIGH_HEIGHT_ID, ButtonProfiles.ROCKET_LOWER));
-        OPERATOR_ARM_LOW_UPPER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LOW_HEIGHT_ID, ButtonProfiles.ROCKET_UPPER));
-        OPERATOR_ARM_MIDDLE_UPPER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_MIDDLE_HEIGHT_ID, ButtonProfiles.ROCKET_UPPER));
-        OPERATOR_ARM_HIGH_UPPER = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_HIGH_HEIGHT_ID, ButtonProfiles.ROCKET_UPPER));
+        OPERATOR_ARM_LOW_HATCH = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LOW_HEIGHT_ID, ButtonProfiles.ROCKET_HATCH));
+        OPERATOR_ARM_MIDDLE_HATCH = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_MIDDLE_HEIGHT_ID, ButtonProfiles.ROCKET_HATCH));
+        OPERATOR_ARM_HIGH_HATCH = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_HIGH_HEIGHT_ID, ButtonProfiles.ROCKET_HATCH));
+        OPERATOR_ARM_LOW_PORT = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_LOW_HEIGHT_ID, ButtonProfiles.ROCKET_PORT));
+        OPERATOR_ARM_MIDDLE_PORT = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_MIDDLE_HEIGHT_ID, ButtonProfiles.ROCKET_PORT));
+        OPERATOR_ARM_HIGH_PORT = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_HIGH_HEIGHT_ID, ButtonProfiles.ROCKET_PORT));
 
         PIXY = in.add(new PixyBlocksSensor(Constants.PIXY_BALL_ID, 1));
 
@@ -113,6 +115,7 @@ public class IO{
 
         LEFT_ENCODER = new Encoder(Constants.LEFT_ENCODER_1, Constants.LEFT_ENCODER_2, false);
         RIGHT_ENCODER = new Encoder(Constants.RIGHT_ENCODER_1, Constants.RIGHT_ENCODER_2, true);
-        ARM_ENCODER = new Encoder(Constants.ARM_ENCODER_1, Constants.ARM_ENCODER_2, false);
+        ARM_ENCODER = new Encoder(Constants.ARM_ENCODER_1, Constants.ARM_ENCODER_2, true);
+        ARM_ENCODER.setDistancePerPulse(3f/5f);
     }
 }

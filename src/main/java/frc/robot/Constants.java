@@ -9,14 +9,15 @@ public class Constants {
     public static final int DRIVE_RIGHT_SLAVE_ID = 3;
 
     public static final int ARM_LIFT_ID = 4;
-    public static final int INTAKE_ID = 5;
+    public static final int INTAKE_1_ID = 5;
+    public static final int INTAKE_2_ID = 6;
 
-    public static final int LIFT_SOL_1_ID = 0;
-    public static final int LIFT_SOL_2_ID = 1;
-    public static final int PUSHER_SOL_1_ID = 2;
-    public static final int PUSHER_SOL_2_ID = 3;
-    public static final int ARM_BOOST_SOL_1_ID = 4;
-    public static final int ARM_BOOST_SOL_2_ID = 5;
+    public static final int LIFT_SOL_1_ID = 5;
+    public static final int LIFT_SOL_2_ID = 4;
+    public static final int PUSHER_SOL_1_ID = 0;
+    public static final int PUSHER_SOL_2_ID = 1;
+    public static final int ARM_BOOST_SOL_1_ID = 2;
+    public static final int ARM_BOOST_SOL_2_ID = 3;
 
     public static final int DRIVER_LEFT_AXIS_ID = Buttons.LEFT_JOYSTICK_Y;
     public static final int DRIVER_RIGHT_AXIS_ID = Buttons.RIGHT_JOYSTICK_Y;

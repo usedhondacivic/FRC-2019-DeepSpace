@@ -10,7 +10,7 @@ public class Out{
     public Dashboard dashboard = new Dashboard();
 
     public void update(){
-        this.motors.update();
+        //this.motors.update();
         this.dashboard.update();
         this.compressor.setClosedLoopControl(true);
     }

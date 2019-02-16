@@ -4,12 +4,17 @@ import frc.robot.framework.Subsystem;
 import frc.robot.framework.Util.SubsystemID;
 import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
 import java.util.ArrayList;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.framework.IO.PID.PIDController;
 
 import frc.robot.Constants;
 import frc.robot.IO;
 
 public class Drive extends Subsystem{
+
+    private double outputLeft = 0;
+    private double outputRight = 0;
+    private double pGain = 0.3f;
+
     public Drive(){
         super(SubsystemID.DRIVE);
     }
@@ -43,13 +48,22 @@ public class Drive extends Subsystem{
     }
 
     private void manualDrive(){
+        double leftSpeed = 0;
+        double rightSpeed = 0;
         if((Double)IO.in.get(IO.DRIVER_SLOW) < -0.5){
-            IO.chassis.drive((Double)IO.in.get(IO.DRIVER_LEFT_Y)*0.65, (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*0.65);
+            leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*0.65;
+            rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*0.65;
         }else if((Double)IO.in.get(IO.DRIVER_FAST) < -0.5){
-            IO.chassis.drive(IO.in.get(IO.DRIVER_LEFT_Y), IO.in.get(IO.DRIVER_RIGHT_Y));
+            leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y);
+            rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y);
         }else{
-            IO.chassis.drive((Double)IO.in.get(IO.DRIVER_LEFT_Y)*0.85, (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*0.85);
+            leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*0.85;
+            rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*0.85;
         }
+        //IO.chassis.drive(leftSidePID.get(lastLeft), rightSidePID.get(lastRight));
+        this.outputLeft += (leftSpeed - this.outputLeft) * this.pGain;
+        this.outputRight += (rightSpeed - this.outputRight) * this.pGain;
+        IO.chassis.drive(this.outputLeft, this.outputRight);
     }
 
     public void reset(){

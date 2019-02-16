@@ -7,6 +7,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
 import java.util.ArrayList;
 import frc.robot.IO;
+import frc.robot.Robot;
 
 public class Dashboard{
     private UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
@@ -42,7 +43,7 @@ public class Dashboard{
 
         SmartDashboard.putNumber("Right encoder", IO.RIGHT_ENCODER.getDistance());
         SmartDashboard.putNumber("Left encoder", IO.LEFT_ENCODER.getDistance());
-        SmartDashboard.putNumber("Arm encoder", IO.ARM_ENCODER.getDistance());
+        SmartDashboard.putNumber("Arm encoder", IO.ARM_ENCODER.getDistance() + Robot.arm.startAngle);
 
         SmartDashboard.putString("Button profile", IO.in.getProfile().toString());
     }

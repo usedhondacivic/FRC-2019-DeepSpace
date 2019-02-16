@@ -1,0 +1,17 @@
+103.5
+195.5
+
+0.46
+
+Hatches:
+51 - Low Hatch
+100 - Middle Hatch
+163 - Max height
+
+Ports:
+74 - Low Ball
+117 - Middle Ball
+163 - Max Height
+
+Check if sin change is correct
+Calibrate wheel dampening
