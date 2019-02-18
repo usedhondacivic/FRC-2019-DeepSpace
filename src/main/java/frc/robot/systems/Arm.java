@@ -12,7 +12,7 @@ public class Arm extends Subsystem{
 
     private double pGain = 1f/25f;//1/15
     private double iGain = 0;
-    private double dGain = 0.20f;//0.45
+    private double dGain = 0.20f;//0.2, 0.45
 
     private double lowHatchAngle = 51;
     private double middleHatchAngle = 100;
@@ -28,7 +28,7 @@ public class Arm extends Subsystem{
     public double ballGrabAngle = 27;
 
     public double startAngle = 28;
-    private double gravityComp = 0.41;
+    private double gravityComp = 0.45;
 
     private double sensitivity = 2;
 

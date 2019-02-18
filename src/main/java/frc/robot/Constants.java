@@ -25,7 +25,7 @@ public class Constants {
     public static final int DRIVER_FAST_AXIS_ID = Buttons.RIGHT_TRIGGER;
 
     public static final int DRIVER_BALL_SEEK_BUTTON_ID = Buttons.A;
-    public static final int DRIVER_LIFT_BUTTON_ID = Buttons.RIGHT_SHOULDER;
+    public static final int DRIVER_LIFT_UP_ID = Buttons.RIGHT_SHOULDER;
 
     public static final int OPERATOR_INTAKE_IN_ID = Buttons.RIGHT_TRIGGER;
     public static final int OPERATOR_INTAKE_OUT_ID = Buttons.LEFT_TRIGGER;
@@ -33,7 +33,6 @@ public class Constants {
     public static final int OPERATOR_CYCLE_PROFILE_DOWN_ID = Buttons.LEFT_SHOULDER;
     public static final int OPERATOR_CYCLE_PROFILE_UP_ID = Buttons.RIGHT_SHOULDER;
     public static final int OPERATOR_PUSHER_OUT_ID = Buttons.X;
-    public static final int OPERATOR_LIFT_UP_ID = Buttons.X;
     public static final int OPERATOR_ARM_BOOST_UP_ID = Buttons.Y;
     public static final int OPERATOR_ARM_BOOST_DOWN_ID = Buttons.A;
 

@@ -31,6 +31,7 @@ public class IO{
     public static int OPERATOR_PUSHER_OUT;
     public static int OPERATOR_CYCLE_PROFILE_UP;
     public static int OPERATOR_CYCLE_PROFILE_DOWN;
+    public static int OPERATOR_LIFT_UP;
     public static int OPERATOR_ARM_BOOST_UP;
     public static int OPERATOR_ARM_BOOST_DOWN;
 
@@ -91,7 +92,7 @@ public class IO{
         DRIVER_SLOW = in.add(new ControllerAxisSensor(driver, Constants.DRIVER_SLOW_AXIS_ID));
         DRIVER_FAST = in.add(new ControllerAxisSensor(driver, Constants.DRIVER_FAST_AXIS_ID));
         DRIVER_BALL_SEEK = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_BALL_SEEK_BUTTON_ID));
-        DRIVER_LIFT_UP = in.add(new ControllerButtonSensor(driver, Constants.OPERATOR_LIFT_UP_ID));
+        DRIVER_LIFT_UP = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_LIFT_UP_ID));
 
         OPERATOR_INTAKE_IN = in.add(new ControllerAxisSensor(operator, Constants.OPERATOR_INTAKE_IN_ID));
         OPERATOR_INTAKE_OUT = in.add(new ControllerAxisSensor(operator, Constants.OPERATOR_INTAKE_OUT_ID));
