@@ -27,6 +27,8 @@ public class Constants {
     public static final int DRIVER_BALL_SEEK_BUTTON_ID = Buttons.A;
     public static final int DRIVER_LIFT_UP_ID = Buttons.RIGHT_SHOULDER;
 
+    public static final int OPERATOR_ARM_REZERO_ID = Buttons.BACK;
+
     public static final int OPERATOR_INTAKE_IN_ID = Buttons.RIGHT_TRIGGER;
     public static final int OPERATOR_INTAKE_OUT_ID = Buttons.LEFT_TRIGGER;
     public static final int OPERATOR_ARM_HEIGHT_ID = Buttons.RIGHT_JOYSTICK_Y;

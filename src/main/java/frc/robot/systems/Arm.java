@@ -83,6 +83,12 @@ public class Arm extends Subsystem{
             IO.out.solenoids.set(IO.ARM_BOOST_SOLENOID, Value.kReverse);
         }
 
+        if((Boolean)IO.in.get(IO.OPERATOR_ARM_REZERO)){
+            this.setSetpoint(this.setpoint-1, false);
+        }else if((Boolean)IO.in.getDelta(IO.OPERATOR_ARM_REZERO)){
+            IO.ARM_ENCODER.reset();
+        }
+
         double output = this.armPID.get(IO.ARM_ENCODER.getDistance()) + this.getFeedforward(IO.ARM_ENCODER.getDistance());
         output = Math.min(output, 0.9);
         IO.out.motors.set(IO.ARM, output);
@@ -102,6 +108,14 @@ public class Arm extends Subsystem{
     public void setSetpoint(double setpoint){
         this.setpoint = setpoint;
         setpoint = Math.max(this.startAngle, Math.min(setpoint, this.maxAngle));
+        this.armPID.setSetpoint(setpoint - this.startAngle);
+    }
+
+    public void setSetpoint(double setpoint, boolean safe){
+        if(safe){
+            return;
+        }
+        this.setpoint = setpoint;
         this.armPID.setSetpoint(setpoint - this.startAngle);
     }
 
