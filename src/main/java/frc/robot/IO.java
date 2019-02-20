@@ -69,10 +69,9 @@ public class IO{
     public static void Initialize(){
         in = new In();
 
-        in.addProfile(ButtonProfiles.PNEUMATICS);
         in.addProfile(ButtonProfiles.ROCKET_HATCH);
         in.addProfile(ButtonProfiles.ROCKET_PORT);
-
+        in.addProfile(ButtonProfiles.PNEUMATICS);
         out = new Out();
         chassis = new Chassis(DRIVE_RIGHT, DRIVE_RIGHT_SLAVE, DRIVE_LEFT, DRIVE_LEFT_SLAVE);
 
@@ -114,9 +113,9 @@ public class IO{
         OPERATOR_ARM_MIDDLE_PORT = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_MIDDLE_HEIGHT_ID, ButtonProfiles.ROCKET_PORT));
         OPERATOR_ARM_HIGH_PORT = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_HIGH_HEIGHT_ID, ButtonProfiles.ROCKET_PORT));
 
-        PIXY = in.add(new PixyBlocksSensor(Constants.PIXY_BALL_ID, 1));
+        PIXY = in.add(new PixyBlocksSensor(Constants.PIXY_BALL_ID, 3));
 
-        GYRO = new ADXRS450_Gyro();
+        //GYRO = new ADXRS450_Gyro();
 
         LEFT_ENCODER = new Encoder(Constants.LEFT_ENCODER_1, Constants.LEFT_ENCODER_2, false);
         RIGHT_ENCODER = new Encoder(Constants.RIGHT_ENCODER_1, Constants.RIGHT_ENCODER_2, true);

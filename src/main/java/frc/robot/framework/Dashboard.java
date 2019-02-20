@@ -27,12 +27,13 @@ public class Dashboard{
         SmartDashboard.putNumber("Left encoder", 0);
         SmartDashboard.putNumber("Arm encoder", 0);
 
-        SmartDashboard.putNumber("Camera exposure", 0);
+        SmartDashboard.putNumber("Camera exposure", 50);
 
         SmartDashboard.putString("Button profile", "");
-
-        camera1.setResolution(320, 240);
-        camera1.setExposureManual((int)SmartDashboard.getNumber("Camera exposure", 50));
+        
+        camera1.setExposureManual((int)SmartDashboard.getNumber("Camera exposure", 100));
+        camera1.setResolution(500, 375);
+        camera1.setFPS(30);
     }
 
     public void update(){

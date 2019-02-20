@@ -15,3 +15,6 @@ Ports:
 
 Check if sin change is correct
 Calibrate wheel dampening
+
+Ku: 1/8
+Tu: 0.566

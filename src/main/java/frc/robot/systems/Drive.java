@@ -8,6 +8,7 @@ import frc.robot.framework.IO.PID.PIDController;
 
 import frc.robot.Constants;
 import frc.robot.IO;
+import frc.robot.Robot;
 
 public class Drive extends Subsystem{
 
@@ -34,11 +35,12 @@ public class Drive extends Subsystem{
     public void teleopUpdate(){
         if((Boolean)IO.in.get(IO.DRIVER_BALL_SEEK)){
             ArrayList<Block> blocks = (ArrayList<Block>)IO.in.get(IO.PIXY);
+            System.out.println(blocks.size());
             if(blocks.size() > 0){
                 Block ball = blocks.get(0);
                 int width = 316;
                 int error = ball.getX() - width/2;
-                IO.chassis.arcadeDrive(0.8, error*Constants.PIXY_BALL_PGAIN);
+                IO.chassis.arcadeDrive(1, error*Constants.PIXY_BALL_PGAIN);
             }else{
                 this.manualDrive();
             }
@@ -51,14 +53,14 @@ public class Drive extends Subsystem{
         double leftSpeed = 0;
         double rightSpeed = 0;
         if((Double)IO.in.get(IO.DRIVER_SLOW) < -0.5){
-            leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*0.65;
-            rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*0.65;
+            leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*0.75;
+            rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*0.75;
         }else if((Double)IO.in.get(IO.DRIVER_FAST) < -0.5){
             leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y);
             rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y);
         }else{
-            leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*0.85;
-            rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*0.85;
+            leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*0.90;
+            rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*0.90;
         }
         //IO.chassis.drive(leftSidePID.get(lastLeft), rightSidePID.get(lastRight));
         this.outputLeft += (leftSpeed - this.outputLeft) * this.pGain;

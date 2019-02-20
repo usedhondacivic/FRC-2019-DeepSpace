@@ -10,9 +10,9 @@ import frc.robot.framework.IO.PID.PIDController;
 public class Arm extends Subsystem{
     public double setpoint;
 
-    private double pGain = 1f/25f;//1/15
-    private double iGain = 0;
-    private double dGain = 0.20f;//0.2, 0.45
+    private double pGain = 1/15f;//1/15
+    private double iGain = 0f;//0.0005
+    private double dGain = 0.25f;//0.2, 0.45
 
     private double lowHatchAngle = 51;
     private double middleHatchAngle = 100;
@@ -25,7 +25,7 @@ public class Arm extends Subsystem{
     private double maxAngle = 163;
 
     public double driveHoldAngle = 35;
-    public double ballGrabAngle = 27;
+    public double ballGrabAngle = 28;
 
     public double startAngle = 28;
     private double gravityComp = 0.45;
@@ -48,7 +48,7 @@ public class Arm extends Subsystem{
 
     public void teleopInit(){
         IO.ARM_ENCODER.reset();
-        this.setSetpoint(27);
+        this.setSetpoint(this.startAngle);
     }
 
     public void teleopUpdate(){
@@ -67,7 +67,7 @@ public class Arm extends Subsystem{
         }else if(Math.abs((Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT)) > 0.1f){
             this.setpoint += (Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT) * this.sensitivity;
             this.setSetpoint(this.setpoint);
-        }else if((Double)IO.in.get(IO.OPERATOR_INTAKE_IN) < -0.5){
+        }else if((Double)IO.in.get(IO.OPERATOR_INTAKE_IN) < -0.5 || (Boolean)IO.in.get(IO.DRIVER_BALL_SEEK)){
             this.setSetpoint(this.ballGrabAngle);
         }else if(this.setpoint == this.ballGrabAngle){
             this.setSetpoint(this.driveHoldAngle);
@@ -87,10 +87,12 @@ public class Arm extends Subsystem{
             this.setSetpoint(this.setpoint-1, false);
         }else if((Boolean)IO.in.getDelta(IO.OPERATOR_ARM_REZERO)){
             IO.ARM_ENCODER.reset();
+            this.setSetpoint(this.startAngle);
         }
 
         double output = this.armPID.get(IO.ARM_ENCODER.getDistance()) + this.getFeedforward(IO.ARM_ENCODER.getDistance());
-        output = Math.min(output, 0.9);
+        //double output = (Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT) + this.getFeedforward(IO.ARM_ENCODER.getDistance());
+        output = Math.max( 0.05f, Math.min(output, 0.9f));
         IO.out.motors.set(IO.ARM, output);
         SmartDashboard.putNumber("Arm setpoint", this.setpoint);
         SmartDashboard.putNumber("Arm output", output);

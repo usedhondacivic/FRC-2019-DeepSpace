@@ -12,12 +12,14 @@ public class PixyBlocksSensor extends Sensor<ArrayList<Block>>{
         this.mapNumber = mapNumber;
         this.maxBlocks = maxBlocks;
         this.pixy = Pixy2.createInstance(Pixy2.LinkType.SPI);
-        this.pixy.init();
-        //this.pixy.setLamp((byte)0, (byte)0);
+        int init = this.pixy.init();
+        System.out.println(init);
+        this.pixy.setLamp((byte)1, (byte)1);
     }
 
     public ArrayList<Block> get(){
-        this.pixy.getCCC().getBlocks(false, this.mapNumber, this.maxBlocks);
+        int error = this.pixy.getCCC().getBlocks(false, this.mapNumber, this.maxBlocks);
+        System.out.println(error);
         return this.pixy.getCCC().getBlocks();
     }
 

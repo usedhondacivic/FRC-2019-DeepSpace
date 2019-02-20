@@ -34,6 +34,7 @@ public class PIDController{
         }
         this.lastTime = System.currentTimeMillis();
         this.accumulatedError += error;
+        SmartDashboard.putNumber("I gain", this.accumulatedError * this.iGain);
         SmartDashboard.putNumber("D gain", derivative * this.dGain);
         return error * this.pGain + this.accumulatedError * this.iGain + derivative * this.dGain;
     }

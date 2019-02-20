@@ -31,8 +31,8 @@ public class Intake extends Subsystem{
             IO.out.motors.set(IO.INTAKE_1, 1);
             IO.out.motors.set(IO.INTAKE_2, 1);
         }else if((Boolean)IO.in.get(IO.DRIVER_BALL_SEEK)){
-            IO.out.motors.set(IO.INTAKE_1, -0.7);
-            IO.out.motors.set(IO.INTAKE_2, -0.7);
+            IO.out.motors.set(IO.INTAKE_1, -1);
+            IO.out.motors.set(IO.INTAKE_2, -1);
         }else{
             IO.out.motors.set(IO.INTAKE_1, 0);
             IO.out.motors.set(IO.INTAKE_2, 0);
