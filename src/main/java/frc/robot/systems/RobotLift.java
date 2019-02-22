@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.IO;
 
 public class RobotLift extends Subsystem{
+    public boolean autoControlled = false;
+
     public RobotLift(){
         super(SubsystemID.ROBOT_LIFT);
     }
@@ -23,10 +25,12 @@ public class RobotLift extends Subsystem{
     }
 
     public void teleopUpdate(){
-        if((Boolean)IO.in.get(IO.DRIVER_LIFT_UP)){
-            IO.out.solenoids.set(IO.LIFT_SOLENOID, Value.kForward);
-        }else{
-            IO.out.solenoids.set(IO.LIFT_SOLENOID, Value.kReverse);
+        if(!this.autoControlled){
+            if((Boolean)IO.in.get(IO.DRIVER_LIFT_UP)){
+                IO.out.solenoids.set(IO.LIFT_SOLENOID, Value.kForward);
+            }else{
+                IO.out.solenoids.set(IO.LIFT_SOLENOID, Value.kReverse);
+            }
         }
     }
 

@@ -19,7 +19,6 @@ public class PixyBlocksSensor extends Sensor<ArrayList<Block>>{
 
     public ArrayList<Block> get(){
         int error = this.pixy.getCCC().getBlocks(false, this.mapNumber, this.maxBlocks);
-        System.out.println(error);
         return this.pixy.getCCC().getBlocks();
     }
 

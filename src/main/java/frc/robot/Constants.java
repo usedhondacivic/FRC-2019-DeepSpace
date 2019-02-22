@@ -24,8 +24,9 @@ public class Constants {
     public static final int DRIVER_SLOW_AXIS_ID = Buttons.LEFT_TRIGGER;
     public static final int DRIVER_FAST_AXIS_ID = Buttons.RIGHT_TRIGGER;
 
-    public static final int DRIVER_BALL_SEEK_BUTTON_ID = Buttons.A;
+    public static final int DRIVER_BALL_SEEK_BUTTON_ID = Buttons.LEFT_SHOULDER;
     public static final int DRIVER_LIFT_UP_ID = Buttons.RIGHT_SHOULDER;
+    public static final int DRIVER_LIFT_MACRO_ID = Buttons.X;
 
     public static final int OPERATOR_ARM_REZERO_ID = Buttons.BACK;
 

@@ -24,6 +24,7 @@ public class IO{
     public static int DRIVER_FAST;
     public static int DRIVER_BALL_SEEK;
     public static int DRIVER_LIFT_UP;
+    public static int DRIVER_LIFT_MACRO;
 
     public static int OPERATOR_ARM_REZERO;
 
@@ -94,6 +95,7 @@ public class IO{
         DRIVER_FAST = in.add(new ControllerAxisSensor(driver, Constants.DRIVER_FAST_AXIS_ID));
         DRIVER_BALL_SEEK = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_BALL_SEEK_BUTTON_ID));
         DRIVER_LIFT_UP = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_LIFT_UP_ID));
+        DRIVER_LIFT_MACRO = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_LIFT_MACRO_ID));
 
         OPERATOR_ARM_REZERO = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_ARM_REZERO_ID));
 
