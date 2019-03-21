@@ -75,7 +75,7 @@ public class Drive extends Subsystem{
         }else if(delta < 1100){
             IO.out.solenoids.set(IO.LIFT_SOLENOID, Value.kReverse);
         }else if(delta < 1250){
-            IO.chassis.drive(-this.slowSpeed, -this.slowSpeed);
+            IO.chassis.drive(-this.mediumSpeed, -this.mediumSpeed);
         }
     }
 

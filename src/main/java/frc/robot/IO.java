@@ -9,7 +9,6 @@ import frc.robot.framework.IO.sensors.ControllerButtonSensor;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 public class IO{
     public static In in;
@@ -78,11 +77,11 @@ public class IO{
 
         out.motors.add(DRIVE_RIGHT, true);
         out.motors.add(DRIVE_RIGHT_SLAVE, true);
-        out.motors.add(DRIVE_LEFT, true);
+        out.motors.add(DRIVE_LEFT, false);
         out.motors.add(DRIVE_LEFT_SLAVE, false);
 
-        out.motors.add(INTAKE_1, false);
-        out.motors.add(INTAKE_2, false);
+        out.motors.add(INTAKE_1, true);
+        out.motors.add(INTAKE_2, true);
         out.motors.add(ARM, false);
 
         PUSHER_SOLENOID = out.solenoids.add(Constants.PUSHER_SOL_1_ID, Constants.PUSHER_SOL_2_ID);

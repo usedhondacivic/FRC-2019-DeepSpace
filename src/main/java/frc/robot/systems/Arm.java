@@ -16,7 +16,7 @@ public class Arm extends Subsystem{
 
     private double lowHatchAngle = 51;
     private double middleHatchAngle = 100;
-    private double highHatchAngle = 180;
+    private double highHatchAngle = 150;
 
     private double lowPortAngle = 74;
     private double middlePortAngle = 117;
@@ -33,22 +33,27 @@ public class Arm extends Subsystem{
     private double sensitivity = 2;
 
     private PIDController armPID = new PIDController(pGain, iGain, dGain);
+    private boolean zerodInAuto = false;
 
     public Arm(){
         super(SubsystemID.ARM);
     }
 
     public void autoInit(){
-
+        IO.ARM_ENCODER.reset();
+        this.setSetpoint(this.startAngle);
+        zerodInAuto = true;
     }
 
     public void autoUpdate(){
-        //this.teleopUpdate();
+        this.teleopUpdate();
     }
 
     public void teleopInit(){
-        IO.ARM_ENCODER.reset();
-        this.setSetpoint(this.startAngle);
+        if(!zerodInAuto){
+            IO.ARM_ENCODER.reset();
+            this.setSetpoint(this.startAngle);
+        }
     }
 
     public void teleopUpdate(){
@@ -92,7 +97,8 @@ public class Arm extends Subsystem{
 
         double output = this.armPID.get(IO.ARM_ENCODER.getDistance()) + this.getFeedforward(IO.ARM_ENCODER.getDistance());
         //double output = (Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT) + this.getFeedforward(IO.ARM_ENCODER.getDistance());
-        output = Math.max( 0.05f, Math.min(output, 0.9f));
+        output = Math.max( 0.1f, Math.min(output, 0.9f));
+        //output = (Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT) + this.getFeedforward(IO.ARM_ENCODER.getDistance());
         IO.out.motors.set(IO.ARM, output);
         SmartDashboard.putNumber("Arm setpoint", this.setpoint);
         SmartDashboard.putNumber("Arm output", output);
@@ -104,7 +110,7 @@ public class Arm extends Subsystem{
     }
 
     public void disable(){
-        
+        zerodInAuto = false;
     }
 
     public void setSetpoint(double setpoint){
