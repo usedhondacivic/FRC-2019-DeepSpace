@@ -4,6 +4,7 @@ import frc.robot.framework.Subsystem;
 import frc.robot.framework.Util.SubsystemID;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.ButtonProfiles;
 import frc.robot.IO;
 import frc.robot.framework.IO.PID.PIDController;
 
@@ -16,13 +17,13 @@ public class Arm extends Subsystem{
 
     private double lowHatchAngle = 51;
     private double middleHatchAngle = 100;
-    private double highHatchAngle = 150;
+    private double highHatchAngle = 143.97f;
 
-    private double lowPortAngle = 74;
-    private double middlePortAngle = 117;
-    private double highPortAngle = 180;
+    private double lowPortAngle = 70.625;
+    private double middlePortAngle = 116.97;
+    private double highPortAngle = 165;
 
-    private double maxAngle = 163;
+    private double maxAngle = 152;
 
     public double driveHoldAngle = 35;
     public double ballGrabAngle = 28;
@@ -72,7 +73,7 @@ public class Arm extends Subsystem{
         }else if(Math.abs((Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT)) > 0.1f){
             this.setpoint += (Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT) * this.sensitivity;
             this.setSetpoint(this.setpoint);
-        }else if((Double)IO.in.get(IO.OPERATOR_INTAKE_IN) < -0.5 || (Boolean)IO.in.get(IO.DRIVER_BALL_SEEK)){
+        }else if(((Double)IO.in.get(IO.OPERATOR_INTAKE_IN) < -0.5 || (Boolean)IO.in.get(IO.DRIVER_BALL_SEEK)) && (IO.ARM_ENCODER.getDistance() + this.startAngle) < this.lowHatchAngle){
             this.setSetpoint(this.ballGrabAngle);
         }else if(this.setpoint == this.ballGrabAngle){
             this.setSetpoint(this.driveHoldAngle);
@@ -82,11 +83,13 @@ public class Arm extends Subsystem{
             IO.out.solenoids.set(IO.ARM_BOOST_SOLENOID, Value.kForward);
         }else if((Boolean)IO.in.get(IO.OPERATOR_ARM_BOOST_DOWN)){
             IO.out.solenoids.set(IO.ARM_BOOST_SOLENOID, Value.kReverse);
-        }else if(this.setpoint > this.maxAngle + 10){
+        }else if(this.setpoint > this.maxAngle + 10 && (IO.ARM_ENCODER.getDistance() + this.startAngle) >= (this.maxAngle - 10f)){
             IO.out.solenoids.set(IO.ARM_BOOST_SOLENOID, Value.kForward);
         }else{
             IO.out.solenoids.set(IO.ARM_BOOST_SOLENOID, Value.kReverse);
         }
+
+        System.out.println("Set: "+this.setpoint+", Encoder: "+ (IO.ARM_ENCODER.getDistance() + this.startAngle) +", Max: "+this.maxAngle+", Bool: "+( (IO.ARM_ENCODER.getDistance() + this.startAngle) >= (this.maxAngle - 10f)));
 
         if((Boolean)IO.in.get(IO.OPERATOR_ARM_REZERO)){
             this.setSetpoint(this.setpoint-1, false);
