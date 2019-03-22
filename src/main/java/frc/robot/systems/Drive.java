@@ -82,10 +82,7 @@ public class Drive extends Subsystem{
     private void manualDrive(){
         double leftSpeed = 0;
         double rightSpeed = 0;
-        if((Double)IO.in.get(IO.DRIVER_SLOW) < -0.5){
-            leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*this.slowSpeed;
-            rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*this.slowSpeed;
-        }else if((Double)IO.in.get(IO.DRIVER_FAST) < -0.5){
+        if((Double)IO.in.get(IO.DRIVER_FAST) < -0.5){
             leftSpeed = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*this.fastSpeed;
             rightSpeed = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*this.fastSpeed;
         }else{
@@ -95,6 +92,11 @@ public class Drive extends Subsystem{
         
         this.outputLeft += (leftSpeed - this.outputLeft) * this.pGain;
         this.outputRight += (rightSpeed - this.outputRight) * this.pGain;
+
+        if((Double)IO.in.get(IO.DRIVER_SLOW) < -0.5){
+            this.outputLeft = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*this.slowSpeed;
+            this.outputRight = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*this.slowSpeed;
+        }
         IO.chassis.drive(this.outputLeft, this.outputRight);
     }
 

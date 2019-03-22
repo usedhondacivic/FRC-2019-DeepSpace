@@ -51,7 +51,7 @@ public class Arm extends Subsystem{
     }
 
     public void teleopInit(){
-        if(!zerodInAuto){
+        if(!this.zerodInAuto){
             IO.ARM_ENCODER.reset();
             this.setSetpoint(this.startAngle);
         }
@@ -73,7 +73,7 @@ public class Arm extends Subsystem{
         }else if(Math.abs((Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT)) > 0.1f){
             this.setpoint += (Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT) * this.sensitivity;
             this.setSetpoint(this.setpoint);
-        }else if(((Double)IO.in.get(IO.OPERATOR_INTAKE_IN) < -0.5 || (Boolean)IO.in.get(IO.DRIVER_BALL_SEEK)) && (IO.ARM_ENCODER.getDistance() + this.startAngle) < this.lowHatchAngle){
+        }else if(((Double)IO.in.get(IO.OPERATOR_INTAKE_IN) < -0.5 || (Boolean)IO.in.get(IO.DRIVER_BALL_SEEK)) && this.setpoint <= this.lowPortAngle){
             this.setSetpoint(this.ballGrabAngle);
         }else if(this.setpoint == this.ballGrabAngle){
             this.setSetpoint(this.driveHoldAngle);
