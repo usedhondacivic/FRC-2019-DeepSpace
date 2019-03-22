@@ -97,6 +97,15 @@ public class Drive extends Subsystem{
             this.outputLeft = (Double)IO.in.get(IO.DRIVER_LEFT_Y)*this.slowSpeed;
             this.outputRight = (Double)IO.in.get(IO.DRIVER_RIGHT_Y)*this.slowSpeed;
         }
+
+        if((Boolean)IO.in.get(IO.DRIVER_REVERSE_CONTROLS)){
+            this.outputLeft *= -1;
+            this.outputRight *= -1;
+            double tempLeft = this.outputLeft;
+            this.outputLeft = this.outputRight;
+            this.outputRight = tempLeft;
+        }
+
         IO.chassis.drive(this.outputLeft, this.outputRight);
     }
 
