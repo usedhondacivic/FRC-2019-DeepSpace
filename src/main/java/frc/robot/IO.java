@@ -79,7 +79,7 @@ public class IO{
         out.motors.add(DRIVE_RIGHT, true);
         out.motors.add(DRIVE_RIGHT_SLAVE, true);
         out.motors.add(DRIVE_LEFT, false);
-        out.motors.add(DRIVE_LEFT_SLAVE, false);
+        out.motors.add(DRIVE_LEFT_SLAVE, true);
 
         out.motors.add(INTAKE_1, true);
         out.motors.add(INTAKE_2, true);

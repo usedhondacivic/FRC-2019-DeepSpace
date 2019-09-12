@@ -18,3 +18,5 @@ Calibrate wheel dampening
 
 Ku: 1/8
 Tu: 0.566
+
+Set arm height to above floor in macro

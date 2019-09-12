@@ -100,7 +100,7 @@ public class Arm extends Subsystem{
 
         double output = this.armPID.get(IO.ARM_ENCODER.getDistance()) + this.getFeedforward(IO.ARM_ENCODER.getDistance());
         //double output = (Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT) + this.getFeedforward(IO.ARM_ENCODER.getDistance());
-        output = Math.max( 0.1f, Math.min(output, 0.9f));
+        output = Math.max( -0.2f, Math.min(output, 0.9f));
         //output = (Double)IO.in.get(IO.OPERATOR_ARM_HEIGHT) + this.getFeedforward(IO.ARM_ENCODER.getDistance());
         IO.out.motors.set(IO.ARM, output);
         SmartDashboard.putNumber("Arm setpoint", this.setpoint);
