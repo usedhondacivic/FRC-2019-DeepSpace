@@ -124,6 +124,7 @@ public class Arm extends Subsystem{
 
     public void setSetpoint(double setpoint, boolean safe){
         if(safe){
+            setSetpoint(setpoint);
             return;
         }
         this.setpoint = setpoint;

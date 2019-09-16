@@ -81,8 +81,8 @@ public class IO{
         out.motors.add(DRIVE_LEFT, false);
         out.motors.add(DRIVE_LEFT_SLAVE, true);
 
-        out.motors.add(INTAKE_1, true);
-        out.motors.add(INTAKE_2, true);
+        out.motors.add(INTAKE_1, false);
+        out.motors.add(INTAKE_2, false);
         out.motors.add(ARM, false);
 
         PUSHER_SOLENOID = out.solenoids.add(Constants.PUSHER_SOL_1_ID, Constants.PUSHER_SOL_2_ID);

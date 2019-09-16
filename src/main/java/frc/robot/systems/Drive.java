@@ -68,6 +68,8 @@ public class Drive extends Subsystem{
     
     private void liftMacro(){
         double delta = System.currentTimeMillis() - this.liftMacroStart;
+        Robot.arm.setSetpoint(51);
+        
         if(delta < 150){
             IO.out.solenoids.set(IO.LIFT_SOLENOID, Value.kForward);
         }else if(delta < 600){
