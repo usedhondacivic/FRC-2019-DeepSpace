@@ -7,6 +7,10 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Robot;
 
 public class Intake extends Subsystem{
+    public boolean autoControlled = false;
+    public boolean forceOpen = false;
+    public boolean forceClosed = false;
+
     public Intake(){
         super(SubsystemID.INTAKE);
     }
@@ -37,12 +41,28 @@ public class Intake extends Subsystem{
             IO.out.motors.set(IO.INTAKE_1, 0);
             IO.out.motors.set(IO.INTAKE_2, 0);
         }
-
-        if((Boolean)IO.in.get(IO.OPERATOR_PUSHER_OUT)){
-            IO.out.solenoids.set(IO.PUSHER_SOLENOID, Value.kForward);
-        }else{
-            IO.out.solenoids.set(IO.PUSHER_SOLENOID, Value.kReverse);
+        
+        if(autoControlled){
+            if(forceOpen){
+                IO.out.solenoids.set(IO.PUSHER_SOLENOID, Value.kForward);
+                System.out.println("Open");
+            }else if(forceClosed){
+                IO.out.solenoids.set(IO.PUSHER_SOLENOID, Value.kReverse);
+                System.out.println("Closed");
+            }
         }
+        else{
+            if(((Boolean)IO.in.get(IO.OPERATOR_PUSHER_OUT) || forceOpen) && !forceClosed){
+                IO.out.solenoids.set(IO.PUSHER_SOLENOID, Value.kForward);
+                System.out.println("Open");
+            }else{
+                IO.out.solenoids.set(IO.PUSHER_SOLENOID, Value.kReverse);
+                System.out.println("Closed");
+            }
+        }
+
+        forceOpen = false;
+        forceClosed = false;
     }
 
     public void reset(){

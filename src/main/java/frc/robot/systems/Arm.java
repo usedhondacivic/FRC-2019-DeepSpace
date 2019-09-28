@@ -11,13 +11,13 @@ import frc.robot.framework.IO.PID.PIDController;
 public class Arm extends Subsystem{
     public double setpoint;
 
-    private double pGain = 1/15f;//1/15
+    private double pGain = 1/18f;//1/25, 1/15 
     private double iGain = 0f;//0.0005
-    private double dGain = 0.25f;//0.2, 0.45
+    private double dGain = 0.20f;//0.25, 0.2, 0.45
 
-    private double lowHatchAngle = 51;
-    private double middleHatchAngle = 100;
-    private double highHatchAngle = 143.97f;
+    private double lowHatchAngle = 39.5f;
+    private double middleHatchAngle = 86.4f;
+    private double highHatchAngle = 138;
 
     private double lowPortAngle = 70.625;
     private double middlePortAngle = 116.97;
@@ -92,7 +92,7 @@ public class Arm extends Subsystem{
         System.out.println("Set: "+this.setpoint+", Encoder: "+ (IO.ARM_ENCODER.getDistance() + this.startAngle) +", Max: "+this.maxAngle+", Bool: "+( (IO.ARM_ENCODER.getDistance() + this.startAngle) >= (this.maxAngle - 10f)));
 
         if((Boolean)IO.in.get(IO.OPERATOR_ARM_REZERO)){
-            this.setSetpoint(this.setpoint-1, false);
+            this.setSetpoint(this.setpoint-3, false);
         }else if((Boolean)IO.in.getDelta(IO.OPERATOR_ARM_REZERO)){
             IO.ARM_ENCODER.reset();
             this.setSetpoint(this.startAngle);

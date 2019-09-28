@@ -25,6 +25,8 @@ public class IO{
     public static int DRIVER_REVERSE_CONTROLS;
     public static int DRIVER_LIFT_UP;
     public static int DRIVER_LIFT_MACRO;
+    public static int DRIVER_PICKUP_MACRO;
+    public static int DRIVER_PLACE_MACRO;
 
     public static int OPERATOR_ARM_REZERO;
 
@@ -97,6 +99,8 @@ public class IO{
         DRIVER_REVERSE_CONTROLS = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_REVERSE_CONTROLS_ID));
         DRIVER_LIFT_UP = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_LIFT_UP_ID));
         DRIVER_LIFT_MACRO = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_LIFT_MACRO_ID));
+        DRIVER_PICKUP_MACRO = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_PICKUP_MACRO_ID));
+        DRIVER_PLACE_MACRO = in.add(new ControllerButtonSensor(driver, Constants.DRIVER_PLACE_MACRO_ID));
 
         OPERATOR_ARM_REZERO = in.add(new ControllerButtonSensor(operator, Constants.OPERATOR_ARM_REZERO_ID));
 

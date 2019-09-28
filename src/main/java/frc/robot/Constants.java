@@ -28,6 +28,8 @@ public class Constants {
     public static final int DRIVER_REVERSE_CONTROLS_ID = Buttons.LEFT_SHOULDER;
     public static final int DRIVER_LIFT_UP_ID = Buttons.RIGHT_SHOULDER;
     public static final int DRIVER_LIFT_MACRO_ID = Buttons.X;
+    public static final int DRIVER_PICKUP_MACRO_ID = Buttons.B;
+    public static final int DRIVER_PLACE_MACRO_ID = Buttons.A;
 
     public static final int OPERATOR_ARM_REZERO_ID = Buttons.BACK;
 

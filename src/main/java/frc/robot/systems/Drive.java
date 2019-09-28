@@ -17,19 +17,26 @@ public class Drive extends Subsystem{
     private double outputRight = 0;
     private double pGain = 0.3f;
 
-    private double slowSpeed = 0.70;
+    private double slowSpeed = 0.50;
     private double mediumSpeed = 0.9;
     private double fastSpeed = 1;
 
     private Notifier liftMacroNotifier;
     private double liftMacroStart;
 
+    private Notifier placeMacroNotifier;
+    private double placeMacroStart;
+    
+    private Notifier pickupMacroNotifier;
+    private double pickupMacroStart;
+
     public Drive(){
         super(SubsystemID.DRIVE);
     }
 
     public void autoInit(){
-
+        IO.RIGHT_ENCODER.reset();
+        IO.LEFT_ENCODER.reset();
     }
 
     public void autoUpdate(){
@@ -37,7 +44,8 @@ public class Drive extends Subsystem{
     }
 
     public void teleopInit(){
-
+        IO.RIGHT_ENCODER.reset();
+        IO.LEFT_ENCODER.reset();
     }
 
     public void teleopUpdate(){
@@ -51,7 +59,8 @@ public class Drive extends Subsystem{
             }else{
                 this.manualDrive();
             }
-        }else if((Boolean)IO.in.get(IO.DRIVER_LIFT_MACRO)){
+        }
+        else if((Boolean)IO.in.get(IO.DRIVER_LIFT_MACRO)){
             if((Boolean)IO.in.getDelta(IO.DRIVER_LIFT_MACRO)){
                 this.liftMacroNotifier = new Notifier(this::liftMacro);
                 this.liftMacroNotifier.startPeriodic(1f/50f);
@@ -61,7 +70,30 @@ public class Drive extends Subsystem{
         }else if((Boolean)IO.in.getDelta(IO.DRIVER_LIFT_MACRO)){
             this.liftMacroNotifier.stop();
             Robot.robotLift.autoControlled = false;
-        }else{
+        }
+        else if((Boolean)IO.in.get(IO.DRIVER_PLACE_MACRO)){
+            if((Boolean)IO.in.getDelta(IO.DRIVER_PLACE_MACRO)){
+                this.placeMacroNotifier = new Notifier(this::hatchPlaceMacro);
+                this.placeMacroNotifier.startPeriodic(1f/50f);
+                this.placeMacroStart = System.currentTimeMillis();
+                Robot.intake.autoControlled = true;
+            }
+        }else if((Boolean)IO.in.getDelta(IO.DRIVER_PLACE_MACRO)){
+            this.placeMacroNotifier.stop();
+            Robot.intake.autoControlled = false;
+        }
+        else if((Boolean)IO.in.get(IO.DRIVER_PICKUP_MACRO)){
+            if((Boolean)IO.in.getDelta(IO.DRIVER_PICKUP_MACRO)){
+                this.pickupMacroNotifier = new Notifier(this::hatchPickupMacro);
+                this.pickupMacroNotifier.startPeriodic(1f/50f);
+                this.pickupMacroStart = System.currentTimeMillis();
+                Robot.intake.autoControlled = true;
+            }
+        }else if((Boolean)IO.in.getDelta(IO.DRIVER_PICKUP_MACRO)){
+            this.pickupMacroNotifier.stop();
+            Robot.intake.autoControlled = false;
+        }
+        else{
             this.manualDrive();
         }
     }
@@ -78,6 +110,44 @@ public class Drive extends Subsystem{
             IO.out.solenoids.set(IO.LIFT_SOLENOID, Value.kReverse);
         }else if(delta < 1250){
             IO.chassis.drive(-this.mediumSpeed, -this.mediumSpeed);
+        }
+    }
+
+    private void hatchPlaceMacro(){
+        double delta = System.currentTimeMillis() - this.placeMacroStart;
+        Robot.intake.forceOpen = false;
+        Robot.intake.forceClosed = false;
+
+        if(delta < 1000){
+            IO.chassis.drive(this.slowSpeed, this.slowSpeed);
+        }else if(delta < 1500){
+            Robot.intake.forceOpen = true;
+            IO.chassis.drive(0, 0);
+        }else if(delta < 2500){
+            IO.chassis.drive(-this.slowSpeed, -this.slowSpeed);
+            Robot.intake.forceOpen = true;
+        }else{
+            IO.chassis.drive(0, 0);
+        }
+    }
+
+    private void hatchPickupMacro(){
+        double delta = System.currentTimeMillis() - this.pickupMacroStart;
+        Robot.intake.forceOpen = false;
+        Robot.intake.forceClosed = false;
+
+        if(delta <200){
+            Robot.intake.forceOpen = true;
+        }else if(delta < 1000){
+            Robot.intake.forceOpen = true;
+            IO.chassis.drive(this.slowSpeed, this.slowSpeed);
+        }else if(delta < 1500){
+            Robot.intake.forceClosed = true;
+            IO.chassis.drive(0, 0);
+        }else if(delta < 2500){
+            IO.chassis.drive(-this.slowSpeed, -this.slowSpeed);
+        }else{
+            IO.chassis.drive(0, 0);
         }
     }
 
@@ -116,6 +186,7 @@ public class Drive extends Subsystem{
     }
 
     public void disable(){
-        
+        IO.RIGHT_ENCODER.reset();
+        IO.LEFT_ENCODER.reset();
     }
 }
